@@ -13,7 +13,12 @@ import contactRoutes from './routes/contactRoutes.js'
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: process.env.FRONTEND_URL,
+        credentials: true
+    }
+));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes)
@@ -23,7 +28,7 @@ app.use('/api/services', serviceRoutes)
 app.use('/api/contacts', contactRoutes)
 
 app.listen(port, (err) => {
-    if(!err){
+    if (!err) {
         console.log(`Server running on http://localhost:${port}`);
         db();
     }
